@@ -12,42 +12,39 @@ class Journal {
     return c;
   }
 
-  removeEntry(index) {
+  removeEnter(index) {
     delete this.entries[index];
   }
 
-  toString() {
+  toSting() {
     return Object.values(this.entries).join('\n');
   }
-
-  // save(filename) {
-  //   fs.writeFileSync(filename, this.toString());
-  // }
-
-  // load(filename) {}
-
-  // loadFromUrl(url) {}
 }
+Journal.count = 0;
 
 class PersistenceManager {
   preprocess(journal) {}
 
   saveToFile(journal, filename) {
-    fs.writeFileSync(filename, journal.toString());
+    fs.writeFileSync(filename, journal.toSting());
   }
-}
 
-Journal.count = 0;
+  save(filename) {
+    fs.writeFileSync(filename, this.toSting());
+  }
+
+  load(filename) {}
+
+  loadFromUrl(url) {}
+}
 
 let j = new Journal();
 j.addEntry('I cried today.');
-j.addEntry('I ate a bug.');
-console.log(j.toString());
-console.log(__dirname);
+j.addEntry('I ate a but.');
+
+console.log(j.toSting());
 
 let p = new PersistenceManager();
-let filename = `${__dirname}/journal.txt`;
+let filename = `${__dirname}\\journal.txt`;
 
 p.saveToFile(j, filename);
-
-// separation of concerns
